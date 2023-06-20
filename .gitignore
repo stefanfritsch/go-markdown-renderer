@@ -1,0 +1,11 @@
+docs.bleve/
+assets/mathjax
+assets/js/polyfill.min.js
+assets/js/bootstrap.bundle.min.js
+assets/js/tex-mml-chtml.js
+assets/css/bootstrap.min.css
+main
+package-lock.json
+package.json
+sass/install-sass.sh
+sass/sass
