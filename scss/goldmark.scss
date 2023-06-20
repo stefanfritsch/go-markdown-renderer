@@ -1,0 +1,751 @@
+@use "sass:color";
+
+body {
+  position: relative;
+}
+
+// ========================================================================== //
+// Fontawesome
+// ========================================================================== //
+
+$fa-font-path: "../webfonts";
+
+// importing core styling file
+@import "./fontawesome/fontawesome.scss";
+
+// our project needs Solid + Brands
+@import "./fontawesome/solid.scss";
+@import "./fontawesome/brands.scss";
+
+
+// ========================================================================== //
+// Styling
+// ========================================================================== //
+
+$font-header: "Segoe UI Light";
+
+$color-danger: #bd0202;
+$color-danger-lighter: #ffbdbd;
+$color-primary: #165788;
+$color-primary-darker: #0f446c;
+$color-primary-lighter: #6897bb;
+$color-primary-lighterer: #8cb3d1;
+$color-primary-lightest: #b8d3e8;
+$color-text-on-primary: #f1f1f1;
+$color-dirty: #f1f1f1d6;
+$color-box-shadow: #42424261;
+$color-nav: darkslategrey;
+
+// $box-shadow-for-boxes: 3px 5px 5px 0px $color-box-shadow;
+$box-shadow-for-boxes: 1px 1px 4px 2px $color-box-shadow;
+
+// ========================================================================== //
+// Layout Variables
+// ========================================================================== //
+
+$height-header: 3.5rem;
+$width-sidebar: 18vw;
+
+
+
+$width-nav: 18vw;
+$width-sep: 4vw;
+
+:root {
+  --width-empty-right: 4rem;
+  --width-sep: 4vw;
+  --width-body: 86vw;
+  --width-sidebar: 18vw;
+  --width-sidebar-selectors: 2rem;
+}
+
+@media (max-width: 90rem) {
+  :root {
+    --width-sidebar: 0px;
+  }
+}
+
+@media (min-width: 58rem) {
+  :root {
+    --width-body: 56rem;
+    --width-sides: calc(100vw - var(--width-empty-right) - var(--width-sidebar-selectors) - var(--width-sidebar) - var(--width-body));
+    --width-left: calc(var(--width-sides) / 2);
+    --width-right: calc(var(--width-sides) / 2);
+  }
+}
+
+// ========================================================================== //
+// The body-grid
+// ========================================================================== //
+html {
+  height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+p,
+ul {
+  text-align: justify;
+  hyphens: auto;
+
+  img {
+    width: 100%;
+  }
+}
+
+/* ========================================================================== */
+/* .toc.nav in general
+/* ========================================================================== */
+
+.toc.nav {
+  flex-direction: column;
+
+  .subdir-button {
+    color: darkslategrey;
+    font-family: "Segoe UI Light";
+
+    >.subdir-name {
+      display: inline-block;
+      padding: 0.3rem 0.2rem;
+    }
+
+    >.nav-link {
+      display: inline-block;
+    }
+  }
+
+  .subdir-button:has(> a.active) {
+    font-weight: bold;
+    background-color: $color-dirty;
+  }
+
+
+  .nav-link {
+    color: $color-nav;
+    font-family: $font-header;
+    padding: .3rem .2rem;
+  }
+
+  ul {
+    width: calc(100% - 1px);
+    list-style-type: none;
+    padding-left: 1rem;
+    margin-left: 1px;
+  }
+
+  >ul.nav-item {
+    padding-left: 1px;
+    margin-left: .4rem;
+  }
+
+  ul.nav-item:has(.nav-link.active) {
+    border-left: 1px solid $color-primary-darker;
+    display: block;
+  }
+
+  li:has(.nav-link.active)>ul.nav-item {
+    display: block;
+  }
+
+  li ul.nav-item {
+    display: none;
+  }
+
+  .active {
+    font-weight: bold;
+    background-color: $color-dirty;
+  }
+}
+
+
+// ========================================================================== //
+// #button-bar
+// ========================================================================== //
+
+#button-bar {
+  z-index: 5;
+  width: 2rem;
+  height: calc(100vh - $height-header);
+  background: $color-primary-lighter;
+  box-shadow: $box-shadow-for-boxes;
+  font-family: $font-header;
+
+  #button-bar-rotator {
+    width: calc(100vh - $height-header);
+    margin-top: calc(100vh - $height-header);
+    transform: rotate(-90deg);
+    transform-origin: 0 0;
+    height: var(--width-sidebar-selectors);
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: flex-end;
+    align-items: stretch;
+
+    >a {
+      color: #f1f1f1;
+      text-decoration: none;
+      padding: 0 2ch;
+      display: flex;
+      align-items: center;
+    }
+
+    >a:hover {
+      background: $color-primary;
+    }
+
+    #toggle-hamburger-btn {
+      transform: rotate(90deg);
+      padding: 0 .6rem;
+      margin-top: -.05rem;
+    }
+  }
+}
+
+
+/* ========================================================================== */
+/* File Tree
+/* ========================================================================== */
+
+#sidebar {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: flex-start;
+
+  width: $width-sidebar;
+  min-width: 40ch;
+  height: calc(100vh - $height-header);
+
+  margin-right: .5rem;
+  padding: 0 0 .5rem 0;
+  overflow: hidden;
+
+
+  box-shadow: $box-shadow-for-boxes;
+
+  h1 {
+    margin: 0;
+    padding: .5rem 1rem;
+    font-family: "Segoe UI Light";
+    font-size: larger;
+    background-color: #eeeeee;
+  }
+
+  >* {
+    // border-top: 2px solid #777777;
+    box-shadow: 1px -3px 3px $color-box-shadow;
+  }
+
+  >*:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+
+  // ========================================================================== //
+  // #search
+
+  #search {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: 100%;
+    min-height: 6.2rem;
+
+    overflow: hidden;
+
+    button {
+      border: none;
+      background: unset;
+    }
+
+    #search-field {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+
+      margin-top: .25rem;
+    }
+
+    #search-results {
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      margin: 0 .5rem;
+    }
+
+    .search-result {
+      margin: .25rem 0;
+
+      background: #f1f1f1;
+
+      .search-result-title {
+        background: lightgrey;
+      }
+
+      a {
+        text-decoration: none;
+        color: unset;
+        cursor: pointer;
+      }
+    }
+  }
+
+  // ========================================================================== //
+  //   #this_page
+  #this_page {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    min-height: calc(40px + 12vh);
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    #md-toc>ul {
+      min-height: 12vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      margin-bottom: 0;
+
+      >li>ul {
+        display: block;
+      }
+    }
+  }
+
+
+  // ========================================================================== //
+  // #pages
+
+  #pages {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    min-height: calc(40px + 15vh);
+
+    >ul {
+      min-height: 15vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      width: calc(100% - 3px);
+      margin-bottom: 0;
+    }
+
+    // Move highest level to the left
+    >ul>li {
+      margin-left: -10px;
+    }
+    
+    .level1 li {
+      border-left: 1px solid black;
+    }
+
+    >ul>li>ul {
+      padding-left: 0;
+    }
+    
+    // same margin as for subdir-buttons (due to the ::before)
+    li > .nav-link {
+      margin-left: 9px;
+    }
+
+    .subdir-item {
+      // padding: .3rem 0 .3rem 0;
+    }
+
+    .subdir-panel {
+      display: none;
+    }
+
+    .subdir-button {
+      cursor: pointer;
+      height: 34px;
+    }
+
+    .subdir-button::before {
+      /* arrow-right */
+      content: '\025b6';
+      font-size: 13px;
+      line-height: 20px;
+      float: left;
+      margin: 6px 6px 2px 9px;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    .subdir-button:hover::before {
+      background-color: #ccc;
+    }
+
+    .subdir-button.active::before {
+      /* arrow-down */
+      content: "\25bc";
+    }
+  }
+
+
+  // ========================================================================== //
+  // #backlinks
+  #backlinks {
+    display: flex;
+    flex-direction: column;
+
+    min-height: calc(40px + 5vh);
+
+    #backlinks-links {
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      .backlinks-backlink {
+        color: $color-nav;
+        font-family: $font-header;
+        padding: .3rem .2rem;
+        margin-left: .9rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 90rem) {
+  #sidebar {
+    position: absolute;
+    margin-left: 2rem;
+    background: white;
+    min-width: 40ch;
+    z-index: 50;
+  }
+}
+
+
+// ========================================================================== //
+// Header
+// ========================================================================== //
+
+#header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: $height-header;
+  background-color: $color-primary;
+  z-index: 100;
+  box-shadow: $box-shadow-for-boxes;
+  color: $color-text-on-primary;
+
+  a {
+    margin-left: 1rem;
+    display: inline-block;
+    font-family: $font-header;
+    color: $color-text-on-primary;
+    text-decoration: none;
+  }
+
+  #title {
+    font-size: 2.4rem;
+    display: inline-block;
+
+    i {
+      margin-right: .2em;
+    }
+  }
+}
+
+
+/* ========================================================================== */
+/* Top level elements in .markdown
+/* ========================================================================== */
+
+#horizontal-grid {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  height: calc(100vh - $height-header);
+
+  .content {
+    /* required for bootstrap.scrollSpy */
+    position: relative;
+    overflow-y: scroll;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto var(--width-body) auto var(--width-empty-right);
+    grid-template-rows: 100%;
+    grid-template-areas:
+      "empty-left markdown right empty-right";
+
+    .markdown {
+      display: block;
+      grid-area: markdown;
+
+      >h1,
+      >h2,
+      >h3,
+      >h4,
+      >h5,
+      >h6 {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        margin-left: calc(0px - 0.5 * var(--width-left));
+        margin-right: calc(0px - 0.5 * var(--width-right));
+        padding-left: 1rem;
+        padding-right: 1rem;
+        box-shadow: $box-shadow-for-boxes;
+        font-family: $font-header;
+        color: $color-text-on-primary;
+      }
+      
+      >h1 a,
+      >h2 a,
+      >h3 a,
+      >h4 a,
+      >h5 a,
+      >h6 a {
+        color: $color-text-on-primary;
+      }
+
+      >h1 {
+        padding-top: 1.3rem;
+        padding-bottom: 1.3rem;
+        background: $color-primary;
+      }
+
+      >h2 {
+        padding-top: 0.8rem;
+        padding-bottom: 0.8rem;
+        background: color.adjust($color-primary, $alpha: -0.1);
+      }
+
+      >h3 {
+        padding-top: 0.4rem;
+        padding-bottom: 0.4rem;
+        background: color.adjust($color-primary, $alpha: -0.2);
+      }
+
+      >h4 {
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
+        background: color.adjust($color-primary, $alpha: -0.3);
+      }
+
+      >h5 {
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
+        background: color.adjust($color-primary, $alpha: -0.4);
+      }
+
+      >h6 {
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
+        background: color.adjust($color-primary, $alpha: -0.5);
+      }
+
+      ul {
+        padding-inline-start: 2rem;
+        max-width: calc(var(--width-body) - 2rem);
+      }
+
+      pre {
+        background-color: $color-dirty !important;
+        padding: .5rem;
+      }
+
+      .mermaid {
+        background-color: white;
+        margin-right: 0;
+        box-shadow: $box-shadow-for-boxes;
+        margin-bottom: 1rem;
+        width: 100%;
+      }
+
+      .note {
+        background-color: $color-primary;
+        border: $color-primary-darker solid 2px;
+        border-radius: .5rem;
+        padding: 0 1rem;
+      }
+
+      .blue {
+        background-color: steelblue;
+        padding: 5px;
+      }
+
+      .red {
+        background-color: red;
+      }
+
+      #insideme {
+        color: yellow;
+      }
+
+      .wide {
+        margin-left: calc(0px - 0.5 * var(--width-left));
+        margin-right: calc(0px - 0.5 * var(--width-right));
+      }
+
+      .wide,
+      .widest {
+        margin-left: calc(0px - 0.9 * var(--width-left));
+        margin-right: calc(0px - 0.9 * var(--width-right));
+      }
+    }
+
+    table {
+      th {
+        background: #0f446c;
+        padding: 0.25rem 0.5rem;
+        color: #f1f1f1;
+      }
+
+      tr {
+        border-bottom: 1px solid #0f446c;
+      }
+
+      td {
+        padding: 0.25rem 0.5rem;
+      }
+    }
+  }
+}
+
+
+// ========================================================================== //
+// random stuff
+// ========================================================================== //
+
+.mermaidTooltip {
+  height: fit-content;
+}
+
+.background {
+  display: none;
+  // grid-area: markdown;
+  // margin-left: -2rem;
+  // margin-right: -2rem;
+  // height: 100%;
+  // box-shadow: 0px 7px 7px 3px $color-box-shadow;
+  // z-index: -100;
+  // background-color: transparent;
+}
+
+.my-bg-lighterer {
+  background-color: $color-primary-lighterer;
+}
+
+.my-bg-lightest {
+  background-color: $color-primary-lightest;
+}
+
+// ========================================================================== //
+// Admonitions
+// ========================================================================== //
+
+.admonition {
+  margin-bottom: 1rem;
+  box-shadow: $box-shadow-for-boxes;
+
+
+  .adm-body {
+    padding: .25rem;
+
+    :last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.adm-note {
+  border: 1px solid $color-primary-lighter;
+  border-radius: .25rem;
+
+  >.adm-title {
+    background: $color-primary-darker;
+    padding: .25rem;
+    color: $color-text-on-primary;
+  }
+
+  >.adm-body {
+    background: #c7defb;
+  }
+}
+
+.adm-danger {
+  border: 1px solid $color-danger;
+  border-radius: .25rem;
+
+  >.adm-title {
+    background-color: $color-danger;
+    color: $color-text-on-primary;
+    padding: .25rem;
+  }
+
+  >.adm-body {
+    background-color: $color-danger-lighter;
+  }
+}
+
+.filetree {
+  ul {
+    margin: 0px 0px 0px 20px;
+    list-style: none;
+    line-height: 2em;
+    font-family: Arial;
+
+    li {
+      font-size: 16px;
+      position: relative;
+
+      >code:first-of-type {
+        border: 1px solid #ddd;
+        border-radius: .25rem;
+        padding:.15rem;  
+      }
+      
+      &:before {
+        position: absolute;
+        left: -15px;
+        top: 0px;
+        content: '';
+        display: block;
+        border-left: 1px solid #ddd;
+        height: 1em;
+        border-bottom: 1px solid #ddd;
+        width: 10px;
+      }
+
+      &:after {
+        position: absolute;
+        left: -15px;
+        bottom: -7px;
+        content: '';
+        display: block;
+        border-left: 1px solid #ddd;
+        height: 100%;
+      }
+
+      &.root {
+        margin: 0px 0px 0px -20px;
+
+        &:before {
+          display: none;
+        }
+
+        &:after {
+          display: none;
+        }
+      }
+
+      &:last-child {
+        &:after {
+          display: none
+        }
+      }
+    }
+  }
+}

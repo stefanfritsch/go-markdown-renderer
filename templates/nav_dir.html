@@ -1,0 +1,10 @@
+{{define "dir"}}
+<ul>
+{{range .Dirs}}
+  <li><a href="{{.Entrypoint}}">{{.Title}}</a>{{.Children}}</li>
+{{end}}
+{{range .Files}}
+  <li><a href="{{.Filepath}}"></a>{{.Title}}</li>
+{{end}}
+</ul>
+{{end}}

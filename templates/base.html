@@ -1,0 +1,74 @@
+{{define "base"}}
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="{{.BaseDir}}/_markdown_renderer_assets/css/bootstrap.min.css">
+  <script src="{{.BaseDir}}/_markdown_renderer_assets/js/bootstrap.bundle.min.js"></script>
+  <script src="{{.BaseDir}}/_markdown_renderer_assets/js/polyfill.min.js"></script>
+  <script id="MathJax-script" async src="{{.BaseDir}}/_markdown_renderer_assets/mathjax/tex-mml-chtml.js"></script>
+  <script src="{{.BaseDir}}/_markdown_renderer_assets/js/cookie.js"></script>
+  <script src="{{.BaseDir}}/_markdown_renderer_assets/js/search.js"></script>
+  <script src="{{.BaseDir}}/_markdown_renderer_assets/js/sidebar.js"></script>
+  <link rel="stylesheet" href="{{.BaseDir}}/_markdown_renderer_assets/css/goldmark.css">
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#toc">
+  <div id="header">
+    <div id="title">
+      <a href="{{.BaseDir}}/">
+        <i class="{{.SiteIcon}}"></i>
+        {{.SiteTitle}}
+      </a>
+    </div>
+  </div>
+  <div id="horizontal-grid">
+    <div id="button-bar">
+      <div id="button-bar-rotator">
+        <a id="toggle-backlinks-btn" class="my-bg-lighterer" href="#" onclick="toggle_sidebar_entry('backlinks')">
+          <div><i class="fa-solid fa-link"></i> What links here?</div>
+        </a>
+        <a id="toggle-pages-btn" class="my-bg-lighterer" href="#" onclick="toggle_sidebar_entry('pages')">
+          <div><i class="fa-solid fa-folder-tree"></i> Pages</div>
+        </a>
+        <a id="toggle-this_page-btn" class="my-bg-lighterer" href="#" onclick="toggle_sidebar_entry('this_page')">
+          <div><i class="fa-solid fa-list-ul"></i> On This Page</div>
+        </a>
+        <a id="toggle-search-btn" class="my-bg-lighterer" href="#" onclick="toggle_sidebar_entry('search')">
+          <div><i class="fa-solid fa-magnifying-glass"></i> Search</div>
+        </a>
+        <a id="toggle-hamburger-btn" class="my-bg-lighterer" href="#" onclick="toggle_sidebar()">
+          <div><i class="fa-solid fa-bars"></i></div>
+        </a>
+      </div>
+    </div>
+    <div id="sidebar" class="nav">
+      <div id="search">
+        <h1>Search</h1>
+        <div id="search-field">
+          <label for="search-query"><i class="fa-solid fa-magnifying-glass"></i></label>
+          <input type="text" id="search-query" name="search-query" placeholder="Search" oninput="search(this.value)">
+          <button onclick="clear_search_results()"><i class="fa-regular fa-circle-xmark"></i></button>
+        </div>
+        <div id="search-results"></div>
+      </div>
+      <div id="this_page"></div>
+      <div id="pages" class="toc nav toc-files">
+        {{.TreeToc}}
+      </div>
+      <div id="backlinks" class="backlinks">
+        {{.BackLinks}}
+      </div>
+    </div>
+    <div id="content" class="content">
+      <div class="background"></div>
+      <div class="left"></div>
+      <div class="markdown">{{.MD}}</div>
+    </div>
+  </div>
+  <script src="{{.BaseDir}}/_markdown_renderer_assets/js/onload.js">
+  </script>
+</body>
+
+</html>
+
+{{end}}
