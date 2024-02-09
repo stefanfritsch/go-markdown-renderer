@@ -550,7 +550,12 @@ ul {
         padding-inline-start: 2rem;
         max-width: calc(var(--width-body) - 2rem);
       }
-
+      
+      blockquote {
+        background-color: $color-dirty !important;
+        padding: .5rem;
+      }
+      
       pre {
         background-color: $color-dirty !important;
         padding: .5rem;
